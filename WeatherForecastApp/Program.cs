@@ -8,34 +8,35 @@ using System.Collections.Generic;
 
 
 
+
 namespace WeatherForecastApp
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string urlString = String.Format("https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=a3f5cd4926414edbf39ba29587ff39ef");
-            WebRequest request = WebRequest.Create(urlString);
+            string selectedCity = null;
+            Console.WriteLine("Please select the city by the corresponding number:");
+            DefineCity defineCity = new DefineCity();
+            defineCity.SelectedCity(selectedCity);
+            getWeather(selectedCity);
 
-            request.Method = "GET";
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            Console.WriteLine($"status = {response.StatusCode}");
-
-            string jsonString = null;
-            using (Stream stream = response.GetResponseStream())
-            {
-                StreamReader reader = new StreamReader(stream);
-                jsonString = reader.ReadToEnd();
-            }
-
-
-            City city = JsonConvert.DeserializeObject<City>(jsonString);
-
-            city.CityToArray();
-            city.Print();
             Console.ReadKey();
+        }
+
+        public static void getWeather(string cityName)
+        {
+            using (WebClient web = new WebClient())
+            {
+                //error in urlString: it does not recognize cityName in url
+                string urlString = String.Format($@"https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&APPID=a3f5cd4926414edbf39ba29587ff39ef", cityName);
+
+                var json = web.DownloadString(urlString);
+
+                var result = JsonConvert.DeserializeObject<WeatherInfo.root>(json);
+                WeatherInfo.root output = result;
+                output.RootToScreen(output);
+            }
         }
     }
 }
