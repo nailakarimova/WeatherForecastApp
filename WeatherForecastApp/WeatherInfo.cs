@@ -21,7 +21,7 @@ namespace WeatherForecastApp
                 Console.WriteLine($"City: {_root.name}");
                 Console.WriteLine($"Country: {_root.sys.country}");
                 Console.WriteLine($"Wind speed: {_root.wind.speed} m/s");
-                Console.WriteLine($"Temperature: {_root.main.temp - 273} C");
+                Console.WriteLine($"Temperature: {_root.main.temp} C");
                 Console.WriteLine($"Pressure: {_root.main.pressure} hpa");
                 Console.WriteLine($"Clouds: {_root.clouds.all.ToString()} %");
                 //Console.WriteLine($"Weather: ");

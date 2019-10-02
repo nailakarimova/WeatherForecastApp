@@ -18,7 +18,8 @@ namespace WeatherForecastApp
             string selectedCity = null;
             Console.WriteLine("Please select the city by the corresponding number:");
             DefineCity defineCity = new DefineCity();
-            defineCity.SelectedCity(selectedCity);
+
+            selectedCity = defineCity.SelectedCity();
             getWeather(selectedCity);
 
             Console.ReadKey();
@@ -28,8 +29,7 @@ namespace WeatherForecastApp
         {
             using (WebClient web = new WebClient())
             {
-                //error in urlString: it does not recognize cityName in url
-                string urlString = String.Format($@"https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&APPID=a3f5cd4926414edbf39ba29587ff39ef", cityName);
+                string urlString = $"https://api.openweathermap.org/data/2.5/weather?q={cityName}&units=metric&APPID=a3f5cd4926414edbf39ba29587ff39ef";
 
                 var json = web.DownloadString(urlString);
 

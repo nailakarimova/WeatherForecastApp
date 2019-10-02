@@ -20,10 +20,10 @@ namespace WeatherForecastApp
             foreach (KeyValuePair<int, string> keyValue in cities)
                 Console.WriteLine($"{keyValue.Key} - {keyValue.Value}");
         }
-               
-        public void SelectedCity(string city)
+
+        public string SelectedCity()
         {
-            city = cities[Listen()];
+            return cities[Listen()];
         }
         public int Listen()
         {
