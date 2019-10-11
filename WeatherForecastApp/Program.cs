@@ -15,17 +15,21 @@ namespace WeatherForecastApp
     {
         static void Main(string[] args)
         {
+            ConnectionToDb connection = new ConnectionToDb();
+     
             string selectedCity = null;
             Console.WriteLine("Please select the city by the corresponding number:");
             DefineCity defineCity = new DefineCity();
-
+           
             selectedCity = defineCity.SelectedCity();
-            getWeather(selectedCity);
-
-            Console.ReadKey();
+            
+            WeatherInfo.root output = getWeather(selectedCity);
+            
+            connection.Insert(selectedCity, output.wind.speed, output.main.temp, output.main.pressure, output.clouds.all);
+            
         }
 
-        public static void getWeather(string cityName)
+        public static WeatherInfo.root getWeather(string cityName)
         {
             using (WebClient web = new WebClient())
             {
@@ -36,7 +40,10 @@ namespace WeatherForecastApp
                 var result = JsonConvert.DeserializeObject<WeatherInfo.root>(json);
                 WeatherInfo.root output = result;
                 output.RootToScreen(output);
+                return output;
             }
         }
+
+
     }
 }

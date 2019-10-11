@@ -29,6 +29,8 @@ namespace WeatherForecastApp
         {
             ConsoleKeyInfo keyInfo;
             string index;
+
+            
             while (true)
             {
                 keyInfo = Console.ReadKey();
@@ -36,7 +38,6 @@ namespace WeatherForecastApp
                 if (keyInfo.Key >= ConsoleKey.D1 && keyInfo.Key <= ConsoleKey.D5)
                 {
                     index = keyInfo.KeyChar.ToString();
-
                     break;
                 }
                 else
